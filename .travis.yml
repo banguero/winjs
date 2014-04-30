@@ -18,3 +18,5 @@ branches:
 matrix:
   allow_failures:
     - script: grunt saucelabs
+    - script: grunt saucelabs-qunit:all
+    
