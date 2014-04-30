@@ -28,8 +28,8 @@
             function interpretedRender(template, dataContext, container) {
                 WinJS.Utilities._writeProfilerMark("WinJS.Binding:templateRender" + template._profilerMarkIdentifier + ",StartTM");
 
-                if (++template._counter === 1 && (template.debugBreakOnRender || WinJS.Binding.Template._debugBreakOnRender)) {
-                    debugger;
+                if (++template._counter === 1 && (template.debugBreakOnRender || WinJS.Binding.Template._debugBreakOnRender)) {                   
+                    debugger; // jshint ignore:line
                 }
 
                 var workPromise = WinJS.Promise.wrap();
@@ -411,7 +411,11 @@
 
                     var resetOnFragmentChange = options.resetOnFragmentChange || (window.Windows && Windows.ApplicationModel && Windows.ApplicationModel.DesignMode && Windows.ApplicationModel.DesignMode.designModeEnabled);
                     if (resetOnFragmentChange) {
-                        var mo = new MutationObserver(function () {
+                        // For platforms that don't support MutationObserver the shim
+                        // currently will never fire. This is OK because only MutationObserver
+                        // can monitor DocFragments and this feature is only for
+                        // assisting authoring tools.
+                        var mo = new WinJS.Utilities._MutationObserver(function () {
                             that._reset();
                             mo.disconnect();
                         });

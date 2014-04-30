@@ -630,7 +630,7 @@
                         that.next();
                     }, false);
 
-                    new MutationObserver(flipViewPropertyChanged).observe(this._flipviewDiv, { attributes: true, attributeFilter: ["dir", "style"] });
+                    new WinJS.Utilities._MutationObserver(flipViewPropertyChanged).observe(this._flipviewDiv, { attributes: true, attributeFilter: ["dir", "style"] });
                     this._cachedStyleDir = this._flipviewDiv.style.direction;
 
                     this._flipviewDiv.addEventListener("mselementresize", flipviewResized);
@@ -1176,7 +1176,7 @@
                     }
 
                     var that = this;
-                    this._buttonFadePromise = (immediately ? WinJS.Promise.wrap() : WinJS.Promise.timeout(buttonFadeDelay)).then(function () {
+                    this._buttonFadePromise = (immediately ? WinJS.Promise.wrap() : WinJS.Promise.timeout(WinJS.UI._animationTimeAdjustment(buttonFadeDelay))).then(function () {
                         that._fadeOutButton("prev");
                         that._fadeOutButton("next");
                         that._buttonFadePromise = null;
