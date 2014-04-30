@@ -6,7 +6,7 @@ before_script:
 - git submodule update --init --recursive
 script:
 - grunt release
-- grunt saucelabs
+- grunt saucelabs --force
 env:
   global:
     - SAUCE_USERNAME=winjs-cause-failure
@@ -18,5 +18,3 @@ branches:
 matrix:
   allow_failures:
     - script: grunt saucelabs
-    - script: grunt saucelabs-qunit:all
-    
